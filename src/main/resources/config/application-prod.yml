@@ -1,0 +1,22 @@
+logging:
+  level:
+    com.amaris.employee_management: WARN
+    org.springframework.web: WARN
+    org.springframework.web.reactive.function.client.ExchangeFunctions: WARN
+
+# Production cache configuration
+cache:
+  employees:
+    max-size: 200
+    expire-after-write-minutes: 30
+    expire-after-access-minutes: 15
+
+# CORS configuration for production
+spring:
+  mvc:
+    cors:
+      allowed-origins: https://employee-management.amaris.com
+      allowed-methods: GET, POST, PUT, DELETE, OPTIONS
+      allowed-headers: Authorization, Content-Type
+      allow-credentials: true
+      max-age: 3600

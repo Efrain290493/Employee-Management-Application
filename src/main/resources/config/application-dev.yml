@@ -1,0 +1,22 @@
+logging:
+  level:
+    com.amaris.employee_management: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.web.reactive.function.client.ExchangeFunctions: DEBUG
+
+# Extended cache TTL for development to reduce API calls
+cache:
+  employees:
+    max-size: 50
+    expire-after-write-minutes: 120
+    expire-after-access-minutes: 60
+
+# CORS configuration for dev environment
+spring:
+  mvc:
+    cors:
+      allowed-origins: http://localhost:3000
+      allowed-methods: GET, POST, PUT, DELETE, OPTIONS
+      allowed-headers: Authorization, Content-Type
+      allow-credentials: true
+      max-age: 3600

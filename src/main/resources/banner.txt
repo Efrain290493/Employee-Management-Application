@@ -1,0 +1,14 @@
+${AnsiColor.BRIGHT_MAGENTA}
+  ,---.                           ,--.         ,-----.                              ,--.  ,--.  ,--.
+ /  O  \ ,--,--,--. ,--,--.,--.--.`--' ,---.  '  .--./ ,---. ,--,--,  ,---. ,--.,--.|  |,-'  '-.`--',--,--,  ,---.
+|  .-.  ||        |' ,-.  ||  .--',--.(  .-'  |  |    | .-. ||      \(  .-' |  ||  ||  |'-.  .-',--.|      \| .-. |
+|  | |  ||  |  |  |\ '-'  ||  |   |  |.-'  `) '  '--'\' '-' '|  ||  |.-'  `)'  ''  '|  |  |  |  |  ||  ||  |' '-' '
+`--' `--'`--`--`--' `--`--'`--'   `--'`----'   `-----' `---' `--''--'`----'  `----' `--'  `--'  `--'`--''--'.`-  /
+                                                                                                            `---'
+ ${AnsiColor.WHITE}·${AnsiColor.BRIGHT_BLUE} CONSULTING ${AnsiColor.WHITE}·${AnsiColor.BRIGHT_BLUE}
+${AnsiColor.DEFAULT}
+:: ${AnsiColor.BRIGHT_BLUE}Employee Management System${AnsiColor.DEFAULT} ::
+ :: ${AnsiColor.BLUE}Spring Boot Version${AnsiColor.DEFAULT} :: ${spring-boot.version}
+ :: ${AnsiColor.BLUE}Java Version${AnsiColor.DEFAULT} :: ${java.version}
+ :: ${AnsiColor.BRIGHT_BLUE}Application${AnsiColor.DEFAULT} :: ${spring.application.name}
+ :: ${AnsiColor.BRIGHT_BLUE}DC LATAM${AnsiColor.DEFAULT} :: Developed by Efrain Lopez Experienced Consultant
