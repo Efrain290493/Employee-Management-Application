@@ -1,4 +1,4 @@
-# Development environment configuration
+# Local environment configuration
 
 # DataSource Configuration - H2 in-memory database
 spring:
@@ -7,7 +7,7 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
-  
+
   # JPA Configuration
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
@@ -17,7 +17,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-  
+
   # H2 Console Configuration
   h2:
     console:
@@ -26,7 +26,7 @@ spring:
       settings:
         web-allow-others: false
 
-  # CORS configuration for dev environment
+  # CORS configuration for local environment
   mvc:
     cors:
       allowed-origins: http://localhost:3000
@@ -45,14 +45,14 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework.cache: DEBUG
 
-# Extended cache TTL for development to reduce API calls
+# Cache Configuration
 cache:
   employees:
     max-size: 50
     expire-after-write-minutes: 120
     expire-after-access-minutes: 60
 
-# External API Configuration - Could be a mock service for development
+# External API Configuration
 employee:
   api:
-    url: https://dev-employee-api.example.com
+    url: https://dummy.restapiexample.com/api/v1

@@ -1,37 +1,51 @@
-server:
-  port: 8080
-  servlet:
-    context-path: /api
+# Common configuration for all environments
 
 spring:
   application:
-    name: employee-management
+    name: employee-management-service
   profiles:
-    active: dev
+    active: local
+  
+  # Common JPA settings
+  jpa:
+    open-in-view: false
+  
+  # Common Jackson settings
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    date-format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+    default-property-inclusion: non_null
 
-# External API configuration
-api:
-  external:
-    base-url: http://dummy.restapiexample.com/api/v1/
-    employees-endpoint: employees
-    employee-by-id-endpoint: employee/{id}
-    timeout: 5000
-    retry:
-      max-attempts: 3
-      initial-backoff: 1000
-      max-backoff: 5000
-      multiplier: 2.0
+# Feign Client Configuration
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
 
-# Cache configuration
-cache:
-  employees:
-    max-size: 100
-    expire-after-write-minutes: 60
-    expire-after-access-minutes: 30
+# Common Server Configuration
+server:
+  servlet:
+    context-path: /api
 
-# Logging
-logging:
-  level:
-    com.amaris.employee_management: INFO
-    org.springframework.web: INFO
-    org.springframework.web.reactive.function.client.ExchangeFunctions: DEBUG
+# Common Management Endpoints
+management:
+  endpoint:
+    health:
+      enabled: true
+  health:
+    diskspace:
+      enabled: true
+
+# Employee API Configuration (default)
+employee:
+  api:
+    url: https://dummy.restapiexample.com/api/v1

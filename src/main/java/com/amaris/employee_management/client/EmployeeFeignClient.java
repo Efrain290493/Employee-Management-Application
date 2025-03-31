@@ -1,10 +1,13 @@
 package com.amaris.employee_management.client;
 
+import com.amaris.employee_management.client.dto.EmployeeDTO;
 import com.amaris.employee_management.client.dto.ResponseDTO;
 import com.amaris.employee_management.config.FeignClientConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 /**
  * Feign Client for external employee data retrieval.
@@ -18,7 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 @FeignClient(
         name = "employeeClient",
-        url = "${api.external.base-url}",
+        url = "${employee.api.url}",
         configuration = FeignClientConfig.class
 )
 public interface EmployeeFeignClient {
@@ -27,8 +30,8 @@ public interface EmployeeFeignClient {
      *
      * @return ResponseDTO containing list of employees
      */
-    @GetMapping("/${api.external.employees-endpoint}")
-    ResponseDTO getAllEmployees();
+    @GetMapping("/employees")
+    ResponseDTO<List<EmployeeDTO>> getAllEmployees();
 
     /**
      * Retrieves a specific employee by their ID from the external API.
@@ -36,6 +39,6 @@ public interface EmployeeFeignClient {
      * @param id Unique identifier of the employee
      * @return ResponseDTO containing employee details
      */
-    @GetMapping("/${api.external.employee-by-id-endpoint}")
-    ResponseDTO getEmployeeById(@PathVariable String id);
+    @GetMapping("/employee/{id}")
+    ResponseDTO<EmployeeDTO> getEmployeeById(@PathVariable("id") String id);
 }

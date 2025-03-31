@@ -1,7 +1,7 @@
 package com.amaris.employee_management.mapper;
 
 import com.amaris.employee_management.client.dto.EmployeeDTO;
-import com.amaris.employee_management.model.Employee;
+import com.amaris.employee_management.model.EmployeeEntity;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,12 +22,12 @@ public class EmployeeMapper {
      * @param dto Data Transfer Object containing employee information
      * @return Mapped Employee domain object, or null if input is null
      */
-    public Employee toEmployee(EmployeeDTO dto) {
+    public EmployeeEntity toEmployee(EmployeeDTO dto) {
         if (dto == null) {
             return null;
         }
 
-        return Employee.builder()
+        return EmployeeEntity.builder()
                 .id(dto.getId())
                 .name(dto.getName())
                 .age(dto.getAge())

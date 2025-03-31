@@ -1,6 +1,6 @@
 package com.amaris.employee_management.service;
 
-import com.amaris.employee_management.model.Employee;
+import com.amaris.employee_management.model.EmployeeEntity;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public interface EmployeeService {
      *
      * @return List of all employees
      */
-    List<Employee> findAllEmployees();
+    List<EmployeeEntity> findAllEmployees();
 
     /**
      * Finds an employee by their unique identifier.
@@ -28,7 +28,7 @@ public interface EmployeeService {
      * @param id Unique identifier of the employee
      * @return Employee details
      */
-    Employee findEmployeeById(String id);
+    EmployeeEntity findEmployeeById(String id);
 
     /**
      * Calculates the annual salary for a specific employee.

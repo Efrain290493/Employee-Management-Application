@@ -1,22 +1,83 @@
-logging:
-  level:
-    com.amaris.employee_management: WARN
-    org.springframework.web: WARN
-    org.springframework.web.reactive.function.client.ExchangeFunctions: WARN
+# Production environment configuration
 
-# Production cache configuration
-cache:
-  employees:
-    max-size: 200
-    expire-after-write-minutes: 30
-    expire-after-access-minutes: 15
-
-# CORS configuration for production
+# DataSource Configuration - PostgreSQL for production
 spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:employeedb}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 120000
+      connection-timeout: 30000
+  
+  # JPA Configuration
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+  
+  # Disable H2 Console in production
+  h2:
+    console:
+      enabled: false
+
+  # CORS configuration for production environment
   mvc:
     cors:
-      allowed-origins: https://employee-management.amaris.com
+      allowed-origins: https://your-production-domain.com
       allowed-methods: GET, POST, PUT, DELETE, OPTIONS
       allowed-headers: Authorization, Content-Type
       allow-credentials: true
       max-age: 3600
+
+# Logging Configuration - More restrictive in production
+logging:
+  level:
+    com.amaris.employee_management: INFO
+    org.springframework: WARN
+    org.hibernate: WARN
+    org.springframework.cache: INFO
+  file:
+    name: /var/log/employee-service/application.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Cache Configuration - Optimized for production
+cache:
+  employees:
+    max-size: 1000
+    expire-after-write-minutes: 30
+    expire-after-access-minutes: 15
+
+# External API Configuration - Production endpoint
+employee:
+  api:
+    url: https://api.employee-service.com
+
+# Server Configuration
+server:
+  port: ${SERVER_PORT:8080}
+  tomcat:
+    max-threads: 200
+    min-spare-threads: 20
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/plain,text/css
+    min-response-size: 2048
+
+# Actuator endpoints for monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized

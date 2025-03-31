@@ -1,6 +1,6 @@
 package com.amaris.employee_management.controller;
 
-import com.amaris.employee_management.model.Employee;
+import com.amaris.employee_management.model.EmployeeEntity;
 import com.amaris.employee_management.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ import java.util.List;
  * @since [Current Date]
  */
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/employees")
 public class EmployeeController {
     /** Service for handling employee-related business logic */
     private final EmployeeService employeeService;
@@ -42,7 +42,7 @@ public class EmployeeController {
      * @return ResponseEntity containing a list of all employees
      */
     @GetMapping
-    public ResponseEntity<List<Employee>> getAllEmployees() {
+    public ResponseEntity<List<EmployeeEntity>> getAllEmployees() {
         return ResponseEntity.ok(employeeService.findAllEmployees());
     }
 
@@ -53,7 +53,7 @@ public class EmployeeController {
      * @return ResponseEntity containing the employee details
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable String id) {
+    public ResponseEntity<EmployeeEntity> getEmployeeById(@PathVariable String id) {
         return ResponseEntity.ok(employeeService.findEmployeeById(id));
     }
 
