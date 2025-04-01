@@ -362,18 +362,22 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    @DisplayName("findEmployeeById should return null when database fallback is empty")
-    void findEmployeeById_WhenDatabaseFallbackEmpty_ShouldReturnNull() {
+    @DisplayName("findEmployeeById should throw ResourceNotFoundException when database fallback is empty")
+    void findEmployeeById_WhenDatabaseFallbackEmpty_ShouldThrowException() {
         // Arrange
         String id = "1";
         when(feignClient.getEmployeeById(id)).thenThrow(new RuntimeException("Generic error"));
         when(employeeRepository.findById(1L)).thenReturn(Optional.empty());
 
-        // Act
-        EmployeeEntity result = employeeService.findEmployeeById(id);
+        // Act & Assert
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
+            employeeService.findEmployeeById(id);
+        });
 
-        // Assert
-        assertNull(result);
+        // Verify exception message
+        assertTrue(exception.getMessage().contains("Employee not found with ID: " + id));
+
+        // Verify method calls
         verify(feignClient, times(1)).getEmployeeById(id);
         verify(employeeRepository, times(1)).findById(1L);
         verify(rateLimiter, times(1)).releasePermit();
@@ -415,7 +419,7 @@ class EmployeeServiceImplTest {
         });
 
         // Verify the exception message
-        assertTrue(exception.getMessage().contains("Could not calculate annual salary"));
+        assertTrue(exception.getMessage().contains("Employee not found with ID: " + id));
     }
 
     @Test

@@ -84,7 +84,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
             if (response == null || response.getData() == null) {
                 log.warn("Employee not found with ID: {}", id);
-                return fallbackToDatabase(Long.parseLong(id));
+                EmployeeEntity fallbackEmployee = fallbackToDatabase(Long.parseLong(id));
+                if (fallbackEmployee == null) {
+                    throw new ResourceNotFoundException("Employee not found with ID: " + id);
+                }
+                return fallbackEmployee;
             }
 
             EmployeeEntity employeeEntity = employeeMapper.toEmployee(response.getData());
@@ -98,13 +102,25 @@ public class EmployeeServiceImpl implements EmployeeService {
             return employeeEntity;
         } catch (ResourceNotFoundException | FeignException.NotFound e) {
             log.warn("Employee not found with ID: {}", id, e);
-            return fallbackToDatabase(Long.parseLong(id));
+            EmployeeEntity fallbackEmployee = fallbackToDatabase(Long.parseLong(id));
+            if (fallbackEmployee == null) {
+                throw new ResourceNotFoundException("Employee not found with ID: " + id);
+            }
+            return fallbackEmployee;
         } catch (RateLimitExceededException e) {
             log.warn("Rate limit exceeded when finding employee with ID: {}", id, e);
-            return fallbackToDatabase(Long.parseLong(id));
+            EmployeeEntity fallbackEmployee = fallbackToDatabase(Long.parseLong(id));
+            if (fallbackEmployee == null) {
+                throw new ResourceNotFoundException("Employee not found with ID: " + id);
+            }
+            return fallbackEmployee;
         } catch (Exception e) {
             log.error("Error finding employee with ID: {}", id, e);
-            return fallbackToDatabase(Long.parseLong(id));
+            EmployeeEntity fallbackEmployee = fallbackToDatabase(Long.parseLong(id));
+            if (fallbackEmployee == null) {
+                throw new ResourceNotFoundException("Employee not found with ID: " + id);
+            }
+            return fallbackEmployee;
         } finally {
             // Make sure to release the rate limiter permit
             rateLimiter.releasePermit();
