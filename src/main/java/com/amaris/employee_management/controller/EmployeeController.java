@@ -17,9 +17,9 @@ import java.util.List;
  * including listing all employees, fetching a specific employee by ID,
  * and calculating annual salary.
  *
- * @author [Your Name]
+ * @author Efrain Lopez
  * @version 1.0
- * @since [Current Date]
+ * @since 31-03-2025
  */
 @RestController
 @RequestMapping("/employees")

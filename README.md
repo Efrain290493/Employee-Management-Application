@@ -49,7 +49,7 @@ git clone https://github.com/Efrain290493/Employee-Management-Application.git
 ```
 
 ```bash
-### Clone the Repository Backend
+### Clone the Repository Frontend
 git clone https://github.com/Efrain290493/Employee-management-frontend.git
 ```
 
@@ -211,5 +211,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Efrain Lopez Mazo efrain.lopezmazo@amaris.com
 
-Project Link: [https://github.com/Efrain290493/Employee-management-frontend](https://github.com/your-username/employee-management)
+Project Link: [https://github.com/Efrain290493/Employee-management-frontend]
 ```
